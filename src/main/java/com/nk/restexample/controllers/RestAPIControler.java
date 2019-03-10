@@ -3,6 +3,8 @@
  */
 package com.nk.restexample.controllers;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,20 +33,40 @@ public class RestAPIControler {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	public String hostName = System.getenv().getOrDefault("HOSTNAME", "UNKNOWN");
+
 	@GetMapping("/hi")
 	public String getName() {
 		MDC.put("userId", "Narendra Yadav");
+		String localIPAdress = "";
+		String localHostName = "";
+		String remoteIPAdress = "";
+		String remoteHostName = "";
+		String str = "";
+		try {
 
-		String res = "Hi Narendra Yadav";
-		logger.info("res : " + res);
-		logger.debug("This is a debug message");
-		logger.info("This is an info message");
-		logger.warn("This is a warn message");
-		logger.error("This is an error message");
+			// Local address
+			localIPAdress = InetAddress.getLocalHost().getHostAddress();
+			localHostName = InetAddress.getLocalHost().getHostName();
+			// Remote address
+			remoteIPAdress = InetAddress.getLoopbackAddress().getHostAddress();
+			remoteHostName = InetAddress.getLoopbackAddress().getHostName();
+			str = "Hi from localIPAdress : " + localIPAdress + " localHostName : " + localHostName
+					+ " remoteIPAdress : " + remoteIPAdress + " remoteHostName : " + remoteHostName;
+			logger.info(str);
 
+		} catch (UnknownHostException e) {
+
+			str = "Error from localIPAdress : " + localIPAdress + " localHostName : " + localHostName
+					+ " remoteIPAdress : " + remoteIPAdress + " remoteHostName : " + remoteHostName + "error message : "
+					+ e.getMessage();
+
+			logger.error(str);
+
+		}
 		MDC.remove("userId");
 
-		return res;
+		return str;
 	}
 
 	@GetMapping("/getData")
@@ -80,4 +102,3 @@ public class RestAPIControler {
 
 	}
 }
-
