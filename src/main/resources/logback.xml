@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="LOGSTASH"
+		source="logstash.servers" />
+
+<!-- 	<property name="LOG_FILE_PATH" value="/log/resexample.json" />
+ -->
+	<property name="projectName"
+		value="Rest Example (restexample)" />
+		<property name="projectId"
+		value="restexample" />
+
+	<appender name="consoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<providers>
+				<mdc /> <!-- MDC variables on the Thread will be written as JSON fields -->
+				<context /> <!--Outputs entries from logback's context -->
+				<version /> <!-- Logstash json format version, the @version field in the output -->
+				<logLevel />
+				<loggerName />
+
+
+				<threadName />
+				<message />
+
+				<logstashMarkers /> <!-- Useful so we can add extra information for specific log lines as Markers -->
+				<arguments /> <!--or through StructuredArguments -->
+
+				<stackTrace />
+			</providers>
+		</encoder>
+
+	</appender>
+<!-- 
+	<appender name="jsonAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_FILE_PATH}</File>
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<customFields>{"application":"${projectId}"}</customFields>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>1</maxIndex>
+			<fileNamePattern>${LOG_FILE_PATH}.%i</fileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>1MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender> -->
+	<logger name="jsonLogger" additivity="false" level="DEBUG">
+<!-- 		<appender-ref ref="jsonAppender" />
+ -->		<appender-ref ref="consoleAppender" />
+
+	</logger>
+	<root level="INFO">
+
+<!-- 		<appender-ref ref="jsonAppender" />
+ -->		<appender-ref ref="consoleAppender" />
+
+	</root>
+
+</configuration>
