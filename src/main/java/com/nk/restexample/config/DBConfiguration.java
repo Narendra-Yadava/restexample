@@ -21,10 +21,12 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jndi.JndiTemplate;
 
 /**
  * This class is used to configure the data source and JDBC template using JNDI.
@@ -36,9 +38,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  */
 @Configuration
 public class DBConfiguration {
-	// @Value("${spring.datasource.jndi-name}")
-	// private String databaseJndi;
+	
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+	@Value("${spring.datasource.jndi-name}")
+	private String databaseJndi;
+
+	@Bean
+	public DataSource dataSource() throws RuntimeException, NamingException {
+		LOGGER.debug("DataSource configuration.......");
+		return (DataSource) new JndiTemplate().lookup(databaseJndi);
+	}
 
 	@Bean
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) throws NamingException {

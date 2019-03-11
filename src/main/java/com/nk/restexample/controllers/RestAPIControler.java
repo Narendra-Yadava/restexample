@@ -35,7 +35,7 @@ public class RestAPIControler {
 
 	public String hostName = System.getenv().getOrDefault("HOSTNAME", "UNKNOWN");
 
-	@GetMapping("/hi")
+	@GetMapping("/getHostDetail")
 	public String getName() {
 		MDC.put("userId", "Narendra Yadav");
 		String localIPAdress = "";
@@ -51,8 +51,8 @@ public class RestAPIControler {
 			// Remote address
 			remoteIPAdress = InetAddress.getLoopbackAddress().getHostAddress();
 			remoteHostName = InetAddress.getLoopbackAddress().getHostName();
-			str = "Hi from localIPAdress : " + localIPAdress + " localHostName : " + localHostName
-					+ " remoteIPAdress : " + remoteIPAdress + " remoteHostName : " + remoteHostName;
+			str = "localIPAdress : " + localIPAdress + " , localHostName : " + localHostName + " , remoteIPAdress : "
+					+ remoteIPAdress + " , remoteHostName : " + remoteHostName;
 			logger.info(str);
 
 		} catch (UnknownHostException e) {
@@ -91,14 +91,19 @@ public class RestAPIControler {
 
 	}
 
-	@GetMapping("/getOSHi")
+	@GetMapping("/getOSHostDetail")
 	public String getOSHi() {
 		logger.info("getOSHi ++");
-		String url = "http://restexample-restexample.1d35.starter-us-east-1.openshiftapps.com/rest/hi";
+		String url = "http://restexample-restexample.1d35.starter-us-east-1.openshiftapps.com/rest/getHostDetail";
 		logger.info("openshift url --" + url);
 		ResponseEntity<String> hiStr = restTemplate.getForEntity(url, String.class);
 		logger.info("getOSHi --" + hiStr.getBody());
 		return hiStr.getBody();
 
+	}
+
+	@GetMapping("/getDBDetail")
+	public String getDBDetail() {
+		return companyDAO.getDBConf();
 	}
 }
