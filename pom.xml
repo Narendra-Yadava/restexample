@@ -25,7 +25,10 @@
 		<trigger.version>1.0</trigger.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<javax.version>7.0</javax.version>
-
+		<wildfly.client.version>9.0.0.Final</wildfly.client.version>
+		<commons.lang3.version>3.7</commons.lang3.version>
+		<commons.net.version>3.6</commons.net.version>
+		<commons.lang.version>2.6</commons.lang.version>
 	</properties>
 
 	<dependencies>
@@ -69,6 +72,24 @@
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6-11.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>${commons.net.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
@@ -94,6 +115,15 @@
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-client-all</artifactId>
+			<version>${wildfly.client.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

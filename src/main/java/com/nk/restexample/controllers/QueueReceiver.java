@@ -13,26 +13,39 @@
  *  are specifically and expressly agreed upon in a written contract.
  *
  **************************************************************************/
-package com.nk.restexample.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
+package com.nk.restexample.controllers;
+
+import javax.jms.MapMessage;
+import javax.jms.Message;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
 
 /**
- *  WebMVCConf.java
+ * This class is used to listen the TM Queue
  *
  * @author Narendra.Kumar
  *
- * @date Mar 10, 2019
+ * @date Feb 6, 2019
  *
  */
-@Configuration
-public class WebMVCConf {
+//@Component
+public class QueueReceiver {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
+	
+
+	@JmsListener(destination = "${jms.jndi.brokergeneration.queue}", containerFactory = "jmsListenerContainerFactory")
+	public void receiveMessage(Message msg) {
+		LOGGER.info("EPGIngestionServiceQueue received message ++ " + msg);
+
+		if (msg instanceof MapMessage) {
+		}
+		LOGGER.info("EPGIngestionServiceQueue received message -- " + msg);
 	}
 }
