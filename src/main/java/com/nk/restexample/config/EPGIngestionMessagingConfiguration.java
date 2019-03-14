@@ -43,8 +43,8 @@ import org.springframework.jndi.JndiTemplate;
  * @date Nov 17, 2018
  *
  */
-//@Configuration
-//@EnableJms
+@Configuration
+@EnableJms
 public class EPGIngestionMessagingConfiguration {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -71,7 +71,7 @@ public class EPGIngestionMessagingConfiguration {
 	 * 
 	 * @return
 	 */
-	//@Bean(name = "jndiConnectionFactory")
+	@Bean(name = "jndiConnectionFactory")
 	public JndiObjectFactoryBean jndiConnectionFactory() {
 		LOGGER.info("jndiConnectionFactory start .....");
 		JndiObjectFactoryBean jndiObjectFactoryBean = new JndiObjectFactoryBean();
@@ -122,8 +122,8 @@ public class EPGIngestionMessagingConfiguration {
 	 * @param jndiConnectionFactory
 	 * @return
 	 */
-	//@Bean(name = "jmsConnectionFactory")
-	//@Primary
+	@Bean(name = "jmsConnectionFactory")
+	@Primary
 	public CachingConnectionFactory jmsConnectionFactory(
 			@Qualifier("jndiConnectionFactory") JndiObjectFactoryBean jndiConnectionFactory) {
 		CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
@@ -139,7 +139,7 @@ public class EPGIngestionMessagingConfiguration {
 	 * @param jmsConnectionFactory
 	 * @return
 	 */
-	//@Bean(name = "jmsTemplate")
+	@Bean(name = "jmsTemplate")
 	public JmsTemplate jmsTemplate(@Qualifier("jmsConnectionFactory") CachingConnectionFactory jmsConnectionFactory) {
 		JmsTemplate jmsTemplate = new JmsTemplate(jmsConnectionFactory);
 		return jmsTemplate;

@@ -39,15 +39,15 @@ import org.springframework.jms.support.converter.MessageType;
  * @date Feb 6, 2019
  *
  */
-//@Configuration
+@Configuration
 public class EPGMessageContainerListenerConfiguration {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-	//@Autowired
+	@Autowired
 	private JmsProperties jmsProperties;
 
-	//@Autowired
+	@Autowired
 	private CachingConnectionFactory connectionFactory;
 
 	/**
@@ -56,7 +56,7 @@ public class EPGMessageContainerListenerConfiguration {
 	 * @param configurer
 	 * @return
 	 */
-	//@Bean(name = "jmsListenerContainerFactory")
+	@Bean(name = "jmsListenerContainerFactory")
 	public JmsListenerContainerFactory<?> jmsContainerFactory(DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		LOGGER.debug("jmsListenerContainerFactory  +");
 
@@ -87,7 +87,7 @@ public class EPGMessageContainerListenerConfiguration {
 	 * 
 	 * @return
 	 */
-	//@Bean
+	@Bean
 	public MessageConverter jacksonJmsMessageConverter() {
 		LOGGER.debug("jacksonJmsMessageConverter  ===>");
 		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
