@@ -41,14 +41,14 @@ public class DBConfiguration {
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-	@Value("${spring.datasource.jndi-name}")
+	/*@Value("${spring.datasource.jndi-name}")
 	private String databaseJndi;
 
 	@Bean
 	public DataSource dataSource() throws RuntimeException, NamingException {
 		LOGGER.debug("DataSource configuration.......");
 		return (DataSource) new JndiTemplate().lookup(databaseJndi);
-	}
+	}*/
 
 	@Bean
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) throws NamingException {
